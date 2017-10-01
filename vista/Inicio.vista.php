@@ -11,18 +11,23 @@ if(empty($_SESSION['usuario'])){
 
 <form enctype="multipart/form-data" action="../controlador/Mascota.ctrl.php" method="post">
 
-    <input name="nombre" placeholder="Nombre mascota" type="text">
+    <input value="<?php echo isset($nombreEditar) ? $nombreEditar : '' ?>" name="nombre" placeholder="Nombre mascota" type="text">
     <br>
-    <input name="edad" placeholder="Edad" type="text">
+    <input  value="<?php echo isset($edadEditar) ? $edadEditar : '' ?>" name="edad" placeholder="Edad" type="text">
     <br>
-    <input name="sexo" placeholder="Sexo" type="text">
+    <input  value="<?php echo isset($sexoEditar) ? $sexoEditar : '' ?>" name="sexo" placeholder="Sexo" type="text">
     <br>
     <label for="">Foto </label>
-    <input name="foto" type="file">
+    <input  value="<?php echo isset($fotoEditar) ? $fotoEditar : '' ?>" name="foto" type="file">
 
     <br><br><br>
 
-    <input name="agregar" value="agregar" type="submit">
+    <input name="idMascota"
+           value="<?php echo $idEditar?>"
+           type="hidden">
+    <input name="<?php echo isset ($nombreEditar) ? 'guardar' : 'agregar' ?>"
+           value="<?php echo isset ($nombreEditar) ? 'guardar' : 'agregar' ?>"
+           type="submit">
 
 </form>
 

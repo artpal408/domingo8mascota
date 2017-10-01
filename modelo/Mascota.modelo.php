@@ -22,7 +22,7 @@ class MascotaModelo{
     }
 
     public function obtenerMascotas(){
-        $consulta =" SELECT * FROM mascotas";
+        $consulta =" SELECT * FROM mascotas WHERE activo = 1";
         return $this->enlace->multiples_datos($consulta);
     }
     public function obtenerMascotaPorNombre($nombre){
@@ -30,17 +30,18 @@ class MascotaModelo{
         return $this->enlace->multiples_datos($consulta);
     }
 
-    public function desactivarMascotas($id){
-        $consulta = "UPDATE mascotas set activo = 0 WHERE id = " . $id;
+    function eliminarMascota($id){
+        $consulta = sprintf("UPDATE mascotas set activo = 0 WHERE idmascota = %d", $id);
         return $this->enlace->query($consulta);
     }
-    function eliminarMascotas($id){
-        $consulta = "DELETE FROM mascotas WHERE id = " . $id;
-        return $this->enlace->query($consulta);
-    }
-    function obtenerDatosPorId($id){
-        $consulta = "SELECT * FROM mascotas WHERE activo = 1 and id = " . $id;
+
+    function obtenerMascotasPorId($id){
+        $consulta = sprintf("SELECT * FROM mascotas WHERE idmascota = %d", $id);
         return $this->enlace->datos($consulta);
     }
 
+    public function actualizarMascota($nombre, $sexo, $edad, $id){
+        $consulta = sprintf("UPDATE mascotas set nombre = '%s', edad = %d, sexo = '%s' WHERE idmascota = %d", $nombre, $edad, $sexo, $id);
+        return $this->enlace->query($consulta);
+    }
 }

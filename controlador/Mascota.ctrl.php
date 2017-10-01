@@ -35,6 +35,48 @@ if(isset($_POST['agregar'])){
     }
 }
 
+if (isset ($_GET['opcion'])) {
+    if ($_GET['opcion'] == "eliminar") {
+        $id = $_GET ['id'];
+        $estado = $modelo->eliminarMascota($id);
+
+        if ($estado) {
+            echo "se elmino con exito";
+        } else {
+            echo "fallo al eliminar";
+        }
+    }
+
+
+    if ($_GET['opcion'] == "editar") {
+        $id = $_GET ['id'];
+        $resultado = $modelo->obtenerMascotasPorId($id);
+        $nombreEditar = $resultado['nombre'];
+        $sexoEditar = $resultado ['sexo'];
+        $edadEditar = $resultado ['edad'];
+        $fotoEditar = $resultado ['foto'];
+        $idEditar = $resultado ['idmascota'];
+    }
+
+}
+
+if (isset($_POST["guardar"])){
+    $nombre = $_POST['nombre'];
+    $sexo = $_POST['sexo'];
+    $edad = $_POST['edad'];
+    $id = $_POST['idmascota'];
+
+    $estado= $modelo->actualizarMascota($nombre, $sexo, $edad, $id);
+
+    if($estado){
+        echo "Se actualizo correctamente";
+    }else{
+        echo "Fallo al actualizar";
+    }
+}
+
+
+
 
 if(isset($_POST['buscar'])) {
     $buscar = $_POST['nombreabuscar'];

@@ -64,7 +64,7 @@ if (isset($_POST["guardar"])){
     $nombre = $_POST['nombre'];
     $sexo = $_POST['sexo'];
     $edad = $_POST['edad'];
-    $id = $_POST['idmascota'];
+    $id = $_POST['idMascota'];
 
     $estado= $modelo->actualizarMascota($nombre, $sexo, $edad, $id);
 

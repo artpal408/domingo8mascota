@@ -9,7 +9,7 @@ if(empty($_SESSION['usuario'])){
 
 ?>
 
-<form action="../controlador/Mascota.ctrl.php" method="post">
+<form enctype="multipart/form-data" action="../controlador/Mascota.ctrl.php" method="post">
 
     <input name="nombre" placeholder="Nombre mascota" type="text">
     <br>
@@ -18,7 +18,7 @@ if(empty($_SESSION['usuario'])){
     <input name="sexo" placeholder="Sexo" type="text">
     <br>
     <label for="">Foto </label>
-    <input type="file">
+    <input name="foto" type="file">
 
     <br><br><br>
 

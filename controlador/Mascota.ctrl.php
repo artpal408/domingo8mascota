@@ -12,11 +12,24 @@ $modelo = new MascotaModelo();
 
 
 if(isset($_POST['agregar'])){
+
+    var_dump($_FILES);
+    $directorio = $_SERVER["DOCUMENT_ROOT"] . '/imagenes/' . str_replace( '', '_', $_FILES["foto"]["name"]);
+
+    if(move_uploaded_file($_FILES["foto"]["tmp_name"] , $directorio)){
+        echo "Se subio la imagen";
+    }else {
+        echo "Fallo al subir la imagen";
+    }
+
+
     $nombre = $_POST['nombre'];
     $sexo = $_POST['sexo'];
     $edad = $_POST['edad'];
 
-    $estado = $modelo->agregarMascota($nombre, $sexo, $edad, '');
+
+
+    $estado = $modelo->agregarMascota($nombre, $sexo, $edad, 'http://mascota:8089/' . '/imagenes/' + $_FILES["foto"]["name"]);
 
     if($estado == true){
         echo 'Mascota agregada';
@@ -25,18 +38,6 @@ if(isset($_POST['agregar'])){
     }
 }
 
-if(!empty ($_POST['guardar'])){
-    $id= $_POST ['id'];
-    $nombre = $_POST['nombre'];
-    $sexo = $_POST['sexo'];
-    $edad = $_POST['edad'];
-    $agrego = $modelo->actualizarMascota($id, $nombre, $sexo, $edad);
-    if($agrego == true){
-        echo "Exito al guardando dato";
-    }else{
-        echo "Fallo al guardando dato";
-    }
-}
 if($_GET['opcion']){
     if($_GET['opcion'] == 'eliminar'){
         $id = $_GET['id'];
@@ -56,6 +57,6 @@ if($_GET['opcion']){
         //var_dump($datos);
     }
 }
-$mascota = $modelo->mostrarMascota();
+$mascota = $modelo->mostrarMascotas();
 
 include_once '../vista/Inicio.vista.php';

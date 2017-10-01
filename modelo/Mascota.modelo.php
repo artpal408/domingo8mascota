@@ -21,15 +21,20 @@ class MascotaModelo{
         return $this->enlace->query($consulta);
     }
 
-    public function mostrarMascotas(){
+    public function obtenerMascotas(){
         $consulta =" SELECT * FROM mascotas";
         return $this->enlace->multiples_datos($consulta);
     }
-    public function desactivarMascota($id){
+    public function obtenerMascotaPorNombre($nombre){
+        $consulta = sprintf("Select * From mascotas WHERE nombre Like '%s%%'", $nombre);
+        return $this->enlace->multiples_datos($consulta);
+    }
+
+    public function desactivarMascotas($id){
         $consulta = "UPDATE mascotas set activo = 0 WHERE id = " . $id;
         return $this->enlace->query($consulta);
     }
-    function eliminarMascota($id){
+    function eliminarMascotas($id){
         $consulta = "DELETE FROM mascotas WHERE id = " . $id;
         return $this->enlace->query($consulta);
     }

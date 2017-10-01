@@ -22,14 +22,11 @@ if(isset($_POST['agregar'])){
         echo "Fallo al subir la imagen";
     }
 
-
     $nombre = $_POST['nombre'];
     $sexo = $_POST['sexo'];
     $edad = $_POST['edad'];
 
-
-
-    $estado = $modelo->agregarMascota($nombre, $sexo, $edad, 'http://mascota:8089/' . '/imagenes/' + $_FILES["foto"]["name"]);
+    $estado = $modelo->agregarMascota($nombre, $sexo, $edad, 'http://mascota:8089/' . 'imagenes/' . $_FILES["foto"]["name"]);
 
     if($estado == true){
         echo 'Mascota agregada';
@@ -38,25 +35,15 @@ if(isset($_POST['agregar'])){
     }
 }
 
-if($_GET['opcion']){
-    if($_GET['opcion'] == 'eliminar'){
-        $id = $_GET['id'];
-        $elimino = $modelo->desactivarMascota($id);
-        if($elimino){
-            echo 'Exito al eliminar mascota';
-        }else{
-            echo 'Fallo al eliminar mascota';
-        }
-    }
-    if($_GET['opcion']== "editar"){
-        $id=$_GET['id'];
-        $datos = $modelo->obtenerDatosPorId($id);
-        $nombreEditable = $datos ['nombre'];
-        $sexoEditable = $datos ['sexo'];
-        $edadEditable = $datos ['edad'];
-        //var_dump($datos);
-    }
+
+if(isset($_POST['buscar'])) {
+    $buscar = $_POST['nombreabuscar'];
+    $mascotas = $modelo->obtenerMascotaPorNombre($buscar);
+
+}else{
+    $mascotas = $modelo->obtenerMascotas();
 }
-$mascota = $modelo->mostrarMascotas();
+
+
 
 include_once '../vista/Inicio.vista.php';

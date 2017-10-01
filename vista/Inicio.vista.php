@@ -26,21 +26,44 @@ if(empty($_SESSION['usuario'])){
 
 </form>
 
-<br><br>
+<br><br><br>
+
+<form
+        method="post"
+        action="../controlador/Mascota.ctrl.php">
+    <input
+            name="nombreabuscar"
+            type="text">
+    <input
+            value="Buscar"
+            name="buscar"
+            type="submit">
+
+</form>
+
+<br><br><br>
+
+<?php
+foreach ($mascotas as $k => $v) {
+    ?>
+
+    <div>
+        <img width="50px" src="<?php echo $v ['foto'] ?>" alt="">
+        <p> <?php echo $v ['nombre'] ?> </p>
+        <a href="http://mascota:8089/controlador/Mascota.ctrl.php?opcion=editar&id=<?php echo $v['idmascota'] ?>">Editar</a>
+        <a href="http://mascota:8089/controlador/Mascota.ctrl.php?opcion=eliminar&id=<?php echo $v['idmascota'] ?>"">Eliminar</a>
+    </div>
+
+    <?php
+}
+?>
+
+<br><br><br>
+
+
+<br><br><br>
 
 <a href="../controlador/Inicio.ctrl.php?cerrar=true"> Cerrar sesión </a>
 
 <br><br>
 
-<?php
-foreach ($mascota as $k => $v) {
-    ?>
-
-    <p><?php echo $v['marca'];?></p>
-    <p> <a href="../controlador/Mascota.ctrl.php?opcion=eliminar&id=<?php echo $v['id']; ?>">Eliminar
-        </a> <p> <a href="../controlador/Mascota.ctrl.php?opcion=editar&id=<?php echo $v['id']; ?>">Editar
-        </a>
-    </p>
-    <?php
-}
-?>
